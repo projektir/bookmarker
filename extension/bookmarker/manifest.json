@@ -1,0 +1,19 @@
+
+{
+    "description": "Bookmarks",
+    "manifest_version": 2,
+    "name": "Bookmarker",
+    "version": "1.0",
+    "homepage_url": "https://github.com/projektir/bookmarker",
+    "permissions": [
+        "bookmarks",
+        "tabs",
+        "activeTab"
+    ],
+    "browser_action": {
+        "default_title": "hmmmmmmm"
+    },
+    "background": {
+        "scripts": ["bookmarker.js"]
+    }
+}
