@@ -59,7 +59,7 @@ query {
 
 ```
 npm install --global web-ext
-cd bookmarker
+cd extension/bookmarker
 web-ext run
 ```
 
