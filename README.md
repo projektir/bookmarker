@@ -40,6 +40,8 @@ INSERT INTO bookmark_tags (bookmark_id, tag_id) VALUES
 
 ### GraphQL Queries
 
+http://localhost:3030/playground
+
 ```
 query {
   bookmarks {
