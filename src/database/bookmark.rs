@@ -1,4 +1,4 @@
-use chrono::NaiveDateTime;
+use chrono::{DateTime, Utc};
 use diesel::prelude::*;
 use diesel::sql_types::Text;
 use uuid::Uuid;
@@ -12,8 +12,8 @@ pub struct Bookmark {
     pub url: String,
     pub icon: String,
     pub notes: String,
-    pub relevant: NaiveDateTime,
-    pub created: NaiveDateTime,
+    pub relevant: DateTime<Utc>,
+    pub created: DateTime<Utc>,
 }
 
 #[derive(QueryableByName, Debug)]
@@ -24,7 +24,7 @@ pub struct TagName {
 
 #[derive(Queryable, Debug)]
 pub struct Tag {
-    pub id: i16,
+    pub id: i32,
     pub name: String,
     pub description: String,
     pub color: String,

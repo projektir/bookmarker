@@ -1,4 +1,3 @@
-use chrono::{DateTime, Utc};
 use juniper::FieldResult;
 
 use crate::database::bookmark::{bookmark_tags, query_bookmarks};
@@ -29,8 +28,8 @@ impl Query {
                     icon: bookmark.icon,
                     notes: bookmark.notes,
                     tags,
-                    relevant: DateTime::<Utc>::from_utc(bookmark.relevant, Utc),
-                    created: DateTime::<Utc>::from_utc(bookmark.created, Utc),
+                    relevant: bookmark.relevant,
+                    created: bookmark.created,
                 })
             })
             .collect::<Result<Vec<_>, _>>()

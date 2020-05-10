@@ -5,22 +5,22 @@ table! {
         url -> Text,
         icon -> Text,
         notes -> Text,
-        relevant -> Timestamp,
-        created -> Timestamp,
+        relevant -> Timestamptz,
+        created -> Timestamptz,
     }
 }
 
 table! {
     bookmark_tags (id) {
-        id -> Int4,
+        id -> Int8,
         bookmark_id -> Uuid,
-        tag_id -> Int4,
+        tag_id -> Int8,
     }
 }
 
 table! {
     tags (id) {
-        id -> Int4,
+        id -> Int8,
         name -> Text,
         description -> Text,
         color -> Text,
