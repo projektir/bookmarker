@@ -1,26 +1,60 @@
+function makeIndent(indentLength) {
+    return "— ".repeat(indentLength);
+}
 
+function logItems(bookmarkItem, indent) {
+    let bookmarkTitle = bookmarkItem.title;
+    if (!bookmarkItem.parentId) {
+        bookmarkTitle = "ROOT";
+    }
 
-let hmm = 1;
-function addBookmark() {
-    browser.bookmarks.create(
-        {
-            title: "blar" + hmm
+    if (bookmarkItem.type === "bookmark") {
+        console.log(`${makeIndent(indent)}${bookmarkItem.index} ${bookmarkTitle} ` +
+            `[${bookmarkItem.url}] (${bookmarkItem.type})`);
+    } else {
+        if (bookmarkItem.type === "separator") {
+            bookmarkTitle = makeIndent(5);
         }
-    );
 
-    hmm++;
-};
+        console.log(`${makeIndent(indent)}${bookmarkItem.index} ${bookmarkTitle} ` +
+            `(${bookmarkItem.type})`);
+    }
+    
+    if (bookmarkItem.type === "folder") {
+        indent++;
+    }
 
-browser.browserAction.onClicked.addListener(addBookmark);
+    if (bookmarkItem.children) {
+        for (child of bookmarkItem.children) {
+            logItems(child, indent);
+        }
+    }
 
-var gettingBookmarks = browser.bookmarks.get("Steam");
-gettingBookmarks.then(onFulfilled, onRejected);
-gettingBookmarks();
+    indent--;
+}
 
-function onFulfilled(bookmarks) {
-    console.log(bookmarks);
-};
+function logTree(bookmarkItems) {
+    logItems(bookmarkItems[0], 0);
+}
 
 function onRejected(error) {
     console.log(`An error: ${error}`);
+}
+
+let generatedCount = 1;
+function addBookmark() {
+    if (generatedCount < 4) {
+        browser.bookmarks.create(
+            {
+                title: "Generated " + generatedCount
+            }
+        );
+    }
+
+    generatedCount++;
+
+    var gettingTree = browser.bookmarks.getTree();
+    gettingTree.then(logTree, onRejected);
 };
+
+browser.browserAction.onClicked.addListener(addBookmark);

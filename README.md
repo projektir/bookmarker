@@ -68,6 +68,8 @@ web-ext run
 To test, enable the Bookmarks Toolbar and drag Other Bookmarks onto it. Click the green puzzle icon, and 
 the extension will add a silly folder to it.
 
+Use `about::debugging` to properly debug the script.
+
 ### License
 
 This project is licensed under either of
