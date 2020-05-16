@@ -65,10 +65,12 @@ cd extension/bookmarker
 web-ext run
 ```
 
-To test, enable the Bookmarks Toolbar and drag Other Bookmarks onto it. Click the green puzzle icon, and 
-the extension will add a silly folder to it.
-
 Use `about::debugging` to properly debug the script.
+
+To test, enable the Bookmarks Toolbar and drag Other Bookmarks onto it. Click the pin icon. You
+will see some plain text in the popup, and you can click on it. "add bookmark" will put
+generated folders into Other Bookmarks, and "print tree" will give you a log of the current
+bookmark tree.
 
 ### License
 
@@ -78,3 +80,5 @@ This project is licensed under either of
  * MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.
+
+Icons from https://www.iconfinder.com/iconsets/bitsies.

@@ -11,9 +11,12 @@
         "activeTab"
     ],
     "browser_action": {
-        "default_title": "hmmmmmmm"
-    },
-    "background": {
-        "scripts": ["bookmarker.js"]
+        "browser_style": true,
+        "default_popup": "popup/bookmark_actions.html",
+        "default_icon": {
+            "16": "icons/Pin.svg",
+            "32": "icons/Pin.svg"
+        },
+        "default_title": "Bookmarker"
     }
 }

@@ -41,6 +41,24 @@ function onRejected(error) {
     console.log(`An error: ${error}`);
 }
 
+document.addEventListener("click", function(e) {
+    if (!e.target.classList.contains("action")) {
+        return;
+    }
+
+    var chosenAction = e.target.textContent;
+    if (chosenAction === "print tree") {
+        printTree();
+    } else if (chosenAction === "add bookmark") {
+        addBookmark();
+    }
+});
+
+function printTree() {
+    var gettingTree = browser.bookmarks.getTree();
+    gettingTree.then(logTree, onRejected);
+};
+
 let generatedCount = 1;
 function addBookmark() {
     if (generatedCount < 4) {
@@ -52,9 +70,4 @@ function addBookmark() {
     }
 
     generatedCount++;
-
-    var gettingTree = browser.bookmarks.getTree();
-    gettingTree.then(logTree, onRejected);
 };
-
-browser.browserAction.onClicked.addListener(addBookmark);
