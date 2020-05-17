@@ -51,6 +51,8 @@ document.addEventListener("click", function(e) {
         printTree();
     } else if (chosenAction === "add bookmark") {
         addBookmark();
+    } else if (chosenAction === "send request") {
+        sendRequest();
     }
 });
 
@@ -71,3 +73,20 @@ function addBookmark() {
 
     generatedCount++;
 };
+
+function sendRequest() {
+    fetch("http://127.0.0.1:3030/graphql/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({"query": "query { bookmarks { id title url } }"}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
+}

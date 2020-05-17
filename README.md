@@ -57,6 +57,12 @@ query {
 }
 ```
 
+```
+curl 'http://127.0.0.1:3030/graphql' \
+  -H 'Content-Type: application/json' \
+  -d '{"query": "query { bookmarks { id title url } }"}'
+```
+
 ### Extension Development
 
 ```
@@ -71,6 +77,14 @@ To test, enable the Bookmarks Toolbar and drag Other Bookmarks onto it. Click th
 will see some plain text in the popup, and you can click on it. "add bookmark" will put
 generated folders into Other Bookmarks, and "print tree" will give you a log of the current
 bookmark tree.
+
+For console settings, choose "Persist Logs" so it doesn't refresh and eat the logs all the time.
+
+### Notes
+
+It should be noted that a few things are hardcoded right now, like server URL or literal text
+by which some actions are picked up, so if things suddenly stop working, the reason might be
+trivial.
 
 ### License
 

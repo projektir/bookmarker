@@ -8,7 +8,8 @@
     "permissions": [
         "bookmarks",
         "tabs",
-        "activeTab"
+        "activeTab",
+        "<all_urls>"
     ],
     "browser_action": {
         "browser_style": true,

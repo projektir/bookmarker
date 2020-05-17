@@ -95,6 +95,14 @@ async fn main() -> std::io::Result<()> {
     let graphql_filter =
         juniper_warp::make_graphql_filter(graphql::schema::create_schema(), warp_context.boxed());
 
+    let cors = warp::cors()
+        .allow_any_origin()
+        .allow_methods(vec!["POST", "GET", "OPTIONS"])
+        .allow_headers(vec![
+            http::header::ACCEPT,
+            http::header::CONTENT_TYPE])
+        .max_age(3600);
+
     warp::serve(
         subscriptions_handler
             .map(|reply| warp::reply::with_header(reply, "Sec-WebSocket-Protocol", "graphql-ws"))
@@ -106,6 +114,7 @@ async fn main() -> std::io::Result<()> {
                     Some("/subscriptions"),
                 )))
             .or(homepage)
+            .with(cors)
             .with(log),
     )
     .run(([127, 0, 0, 1], 3030))
