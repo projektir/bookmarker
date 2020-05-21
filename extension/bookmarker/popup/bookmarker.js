@@ -9,14 +9,14 @@ function logItems(bookmarkItem, indent) {
     }
 
     if (bookmarkItem.type === "bookmark") {
-        console.log(`${makeIndent(indent)}${bookmarkItem.index} ${bookmarkTitle} ` +
+        console.log(`${makeIndent(indent)}${bookmarkItem.index} ${bookmarkItem.id} ${bookmarkTitle} ` +
             `[${bookmarkItem.url}] (${bookmarkItem.type})`);
     } else {
         if (bookmarkItem.type === "separator") {
             bookmarkTitle = makeIndent(5);
         }
 
-        console.log(`${makeIndent(indent)}${bookmarkItem.index} ${bookmarkTitle} ` +
+        console.log(`${makeIndent(indent)}${bookmarkItem.index} ${bookmarkItem.id} ${bookmarkTitle} ` +
             `(${bookmarkItem.type})`);
     }
     
@@ -34,7 +34,20 @@ function logItems(bookmarkItem, indent) {
 }
 
 function logTree(bookmarkItems) {
-    logItems(bookmarkItems[0], 0);
+    // This should always exist, right?
+    var bookmarksToolbar = bookmarkItems[0].children.find(function(child) {
+        return child.title === "Bookmarks Toolbar";
+    });
+
+    var testBookmarks = bookmarksToolbar.children.find(function(child) {
+        return child.title === "Test Bookmarks";
+    });
+
+    if (testBookmarks) {
+        logItems(testBookmarks, 0);
+    } else {
+        logItems(bookmarkItems[0], 0);
+    }
 }
 
 function onRejected(error) {
@@ -58,6 +71,7 @@ document.addEventListener("click", function(e) {
 
 function printTree() {
     var gettingTree = browser.bookmarks.getTree();
+
     gettingTree.then(logTree, onRejected);
 };
 

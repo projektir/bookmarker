@@ -16,7 +16,7 @@ impl Query {
         bookmarks
             .into_iter()
             .map(|bookmark| {
-                let tags = bookmark_tags(&connection, bookmark.id)?
+                let tags = bookmark_tags(&connection, &bookmark.id)?
                     .into_iter()
                     .map(|tagname| tagname.name)
                     .collect();

@@ -1,6 +1,5 @@
 use chrono::{DateTime, Utc};
 use juniper::{Context as JuniperContext, EmptyMutation, RootNode};
-use uuid::Uuid;
 
 use crate::database::Pool;
 
@@ -39,7 +38,7 @@ pub struct Unit {
 #[derive(juniper::GraphQLObject)]
 #[graphql(description = "A bookmark")]
 pub struct Bookmark {
-    pub id: Uuid,
+    pub id: String,
     pub title: String,
     pub url: String,
     pub icon: String,

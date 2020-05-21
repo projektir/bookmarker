@@ -1,6 +1,6 @@
 table! {
     bookmarks (id) {
-        id -> Uuid,
+        id -> Text,
         title -> Text,
         url -> Text,
         icon -> Text,
@@ -13,7 +13,7 @@ table! {
 table! {
     bookmark_tags (id) {
         id -> Int8,
-        bookmark_id -> Uuid,
+        bookmark_id -> Text,
         tag_id -> Int8,
     }
 }
@@ -41,4 +41,9 @@ table! {
 joinable!(bookmark_tags -> bookmarks (bookmark_id));
 joinable!(bookmark_tags -> tags (tag_id));
 
-allow_tables_to_appear_in_same_query!(bookmarks, bookmark_tags, tags, units,);
+allow_tables_to_appear_in_same_query!(
+    bookmarks,
+    bookmark_tags,
+    tags,
+    units,
+);

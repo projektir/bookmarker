@@ -1,5 +1,5 @@
 CREATE TABLE bookmarks (
-  id UUID PRIMARY KEY,
+  id TEXT PRIMARY KEY, -- firefox bookmark id
   title TEXT NOT NULL,
   url TEXT NOT NULL, -- fine if it's defunct, just have a url
   icon TEXT NOT NULL, -- file path or url
@@ -17,7 +17,7 @@ CREATE TABLE tags (
 
 CREATE TABLE bookmark_tags (
   id BIGSERIAL PRIMARY KEY,
-  bookmark_id UUID NOT NULL,
+  bookmark_id TEXT NOT NULL,
   tag_id BIGINT NOT NULL,
 
   FOREIGN KEY(bookmark_id) REFERENCES bookmarks(id),

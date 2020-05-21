@@ -11,19 +11,26 @@ grant all privileges on database bookmarkdb to admin_user;
 
 ```
 diesel setup --database-url postgres://admin_user:dummy@localhost/bookmarkdb
-diesel migration generate create_bookmarks --database-url postgres://admin_user:dummy@localhost/bookmarkdb
 
 \c bookmarkdb
+```
+
+Development:
+```
+diesel migration generate create_bookmarks --database-url postgres://admin_user:dummy@localhost/bookmarkdb
+diesel migration revert --database-url postgres://admin_user:dummy@localhost/bookmarkdb
+diesel migration redo --database-url postgres://admin_user:dummy@localhost/bookmarkdb
+diesel migration run --database-url postgres://admin_user:dummy@localhost/bookmarkdb
 ```
 
 #### Initial Test Data
 
 ```
 INSERT INTO bookmarks (id, title, url, icon) VALUES
-    ('0d725b11-d160-4b62-a94f-fcc8cdd09bed', 'Habitica', 'https://habitica.com/', 'WIP'),
-    ('bcecdd37-ccfe-4c45-ac90-8b5ab101e1b3', 'Rust', 'https://www.rust-lang.org/', 'WIP'),
-    ('4c9f154f-0405-4e8e-847d-0f660f887caa', 'RBE', 'https://doc.rust-lang.org/rust-by-example/', 'WIP'),
-    ('c5bcecc6-4678-4dc3-95f2-f0c2c8280ef0', 'Wowhead Classic', 'https://classic.wowhead.com/', 'WIP');
+    ('kMXD6KBOkYFR', 'Habitica', 'https://habitica.com/', 'WIP'),
+    ('Louf03RhfFx2', 'Rust', 'https://www.rust-lang.org/', 'WIP'),
+    ('hoBdEMMzukcg', 'RBE', 'https://doc.rust-lang.org/rust-by-example/', 'WIP'),
+    ('M3R3XgYCzoGM', 'Wowhead Classic', 'https://classic.wowhead.com/', 'WIP');
 
 INSERT INTO tags (name) VALUES
     ('Rust'), -- 1
@@ -31,11 +38,11 @@ INSERT INTO tags (name) VALUES
 INSERT INTO tags (name, description) VALUES ('WoW', 'World of Warcraft'); -- 3
 
 INSERT INTO bookmark_tags (bookmark_id, tag_id) VALUES
-    ('bcecdd37-ccfe-4c45-ac90-8b5ab101e1b3', 1),
-    ('bcecdd37-ccfe-4c45-ac90-8b5ab101e1b3', 2),
-    ('4c9f154f-0405-4e8e-847d-0f660f887caa', 1),
-    ('4c9f154f-0405-4e8e-847d-0f660f887caa', 2),
-    ('c5bcecc6-4678-4dc3-95f2-f0c2c8280ef0', 3);
+    ('Louf03RhfFx2', 1),
+    ('Louf03RhfFx2', 2),
+    ('hoBdEMMzukcg', 1),
+    ('hoBdEMMzukcg', 2),
+    ('M3R3XgYCzoGM', 3);
 ```
 
 ### GraphQL Queries
@@ -77,6 +84,10 @@ To test, enable the Bookmarks Toolbar and drag Other Bookmarks onto it. Click th
 will see some plain text in the popup, and you can click on it. "add bookmark" will put
 generated folders into Other Bookmarks, and "print tree" will give you a log of the current
 bookmark tree.
+
+For easier testing of real, persistent bookmarks, the script will also search for a folder
+named "Test Bookmarks" on the Bookmarks Toolbar, which can be maintained on the full firefox
+and then the extension can be loaded by hand there.
 
 For console settings, choose "Persist Logs" so it doesn't refresh and eat the logs all the time.
 

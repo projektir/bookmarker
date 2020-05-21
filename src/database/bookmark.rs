@@ -1,13 +1,12 @@
 use chrono::{DateTime, Utc};
 use diesel::prelude::*;
 use diesel::sql_types::Text;
-use uuid::Uuid;
 
 use super::{DatabaseError, PooledConnection};
 
 #[derive(Queryable, Debug)]
 pub struct Bookmark {
-    pub id: Uuid,
+    pub id: String,
     pub title: String,
     pub url: String,
     pub icon: String,
@@ -38,10 +37,9 @@ pub fn query_bookmarks(conn: &PooledConnection) -> Result<Vec<Bookmark>, Databas
 
 pub fn bookmark_tags(
     conn: &PooledConnection,
-    bookmark_id: Uuid,
+    bookmark_id: &str,
 ) -> Result<Vec<TagName>, DatabaseError> {
     use diesel::sql_query;
-    use diesel::sql_types::Uuid;
 
     Ok(sql_query(
         r#"
@@ -51,6 +49,6 @@ INNER JOIN tags ON bookmark_tags.tag_id = tags.id
 WHERE bookmark_tags.bookmark_id = $1;
 "#,
     )
-    .bind::<Uuid, _>(bookmark_id)
+    .bind::<Text, _>(bookmark_id)
     .load(conn)?)
 }
