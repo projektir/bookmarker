@@ -8,7 +8,7 @@ edition = "2018"
 warp = "0.2.3"
 http = "0.2.1"
 
-tokio = { version = "0.2.21", features = ["macros"] }
+tokio = { version = "1.13.1", features = ["macros"] }
 
 diesel = { version = "1.4.4", features = ["postgres", "r2d2", "chrono", "serde_json"] }
 diesel_migrations = "1.4.0"
